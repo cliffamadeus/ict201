@@ -3,14 +3,22 @@ class Stack:
         self.stack = []  # initialize an empty stack
 
     def push(self, item):
-        """Add a to the stack."""
-        self.stack.append(item)
+        """Add an item to the top of the stack (without append)."""
+        # create a new list one element longer
+        new_stack = [None] * (len(self.stack) + 1)
+        for i in range(len(self.stack)):
+            new_stack[i] = self.stack[i]
+        new_stack[len(self.stack)] = item
+        self.stack = new_stack
         print(f"Added: {item}")
 
     def pop(self):
-        """Remove the top from the stack."""
+        """Remove the top item from the stack (without pop)."""
         if not self.is_empty():
-            planted = self.stack.pop()
+            planted = self.stack[-1]  # get the last element
+            # create a new list without the last element
+            new_stack = [self.stack[i] for i in range(len(self.stack) - 1)]
+            self.stack = new_stack
             print(f"Planted: {planted}")
             return planted
         else:
@@ -18,9 +26,9 @@ class Stack:
             return None
 
     def peek(self):
-        """View the top  without removing it."""
+        """View the top item without removing it."""
         if not self.is_empty():
-            return self.stack[-1]
+            return self.stack[len(self.stack) - 1]
         else:
             return None
 
@@ -30,7 +38,7 @@ class Stack:
 
     def display(self):
         """Display the current stack."""
-        print("Current  stack:", self.stack)
+        print("Current stack:", self.stack)
 
 
 # Example usage
@@ -38,9 +46,9 @@ if __name__ == "__main__":
     seed_stack = Stack()
 
     # Add seedlings
-    seed_stack.push(" 1")
-    seed_stack.push(" 2")
-    seed_stack.push(" 3")
+    seed_stack.push("Seedling 1")
+    seed_stack.push("Seedling 2")
+    seed_stack.push("Seedling 3")
 
     # Display before planting
     seed_stack.display()

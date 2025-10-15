@@ -2,6 +2,15 @@ class ArrayQueue:
     def __init__(self):
         self.queue = []
 
+    def enqueue(self, item):
+        """Add item to the rear of the queue"""
+        new_queue = [None] * (len(self.queue) + 1)
+        for i in range(len(self.queue)):
+            new_queue[i] = self.queue[i]
+        new_queue[len(self.queue)] = item
+        self.queue = new_queue
+        print(f"Enqueued: {item}")
+
     def peek(self):
         """View the front item without removing it."""
         if self.is_empty():
